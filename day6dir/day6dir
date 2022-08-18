@@ -1,0 +1,43 @@
+space = '*******************************************************************'
+
+initialInvestment = -1 * float(input('initial investment: '))
+
+requiredRate = float(input('what is your required rate of return? '))
+
+year, yearInp, x = 1, 0, 0
+try:
+    if x < int(year):
+        while int(yearInp) < int(year):
+            yearInp = input('how many years of cashflow(not including year0)? ')
+except ValueError:
+    print('please input only numbers into question')
+finally:
+    print(space)
+    print('please do not input commas into the following queries')
+
+totalCashFlows, cashFlows, y = 0, [], 1
+while y < (int(yearInp)+1):
+    cashFlows.append(int(input('cashflow in year'+str(y)+': ')))
+    y += 1
+for i in range(0,len(cashFlows)):
+    totalCashFlows += cashFlows[i]
+print(space)
+
+presentValue = float(totalCashFlows / (1 + (requiredRate / 100) ** (float(yearInp) + 1)))
+netPresVal = float(totalCashFlows - presentValue)
+irr = ((totalCashFlows + initialInvestment) / (initialInvestment * -1)) / (float(yearInp) + 1)
+print('Your IRR is ' + str(round(irr,2)))
+
+summary = {'TotalCashFlows': totalCashFlows,
+           'InitialInvestment':initialInvestment,
+           'years': yearInp,
+           'present Value': presentValue,
+           'Net Present Value': netPresVal
+           }
+
+for key, value in summary.items():
+    print(key, (round(float(value), 2)))
+
+
+
+
